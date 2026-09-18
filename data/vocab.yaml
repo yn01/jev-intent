@@ -1,0 +1,247 @@
+# ==========================================================================
+# vocab.yaml — 検索語句レポート生成用の語彙定義
+# 対象: デジタルカメラ・交換レンズ分野 / 自社: ニコン / 競合: キヤノン, ソニー
+#
+# 【記入ルール】
+# - products 配下の各製品は、正式名(name)と検索で実際に打たれそうな
+#   略称・表記揺れ(aliases)を持つ辞書形式で記入します:
+#     - name: "EOS R5 Mark II"
+#       aliases: ["R5 Mark II", "R5II", "r5 mark2", "R5 マーク2"]
+#   生成時は name / aliases から重み付き（aliasesの方を多めに）で
+#   表記を選び、選んだ表記を queries.csv の product_surface 列に残します。
+#   aliases が空、または単純な文字列（例: "Z9"）のままでも構いません
+#   （その場合は常に name がそのまま使われます）。
+# - product_categories は products が空でも generate.py が動くように
+#   用意したフォールバック用の一般名詞です（製品名確定後もそのまま
+#   併用してOK。むしろ一般名詞クエリの再現に有用です）。
+# - brands / modifiers / templates / out_of_category は仮埋め済みです。
+#   （generate.py がそのまま使う想定。必要に応じて増減してください）
+# ==========================================================================
+
+brands:
+  own:
+    key: "nikon"
+    canonical: "ニコン"
+    aliases: ["ニコン", "Nikon", "NIKON", "nikon"]
+  competitors:
+    canon:
+      key: "canon"
+      canonical: "キヤノン"
+      aliases: ["キヤノン", "Canon", "CANON", "canon"]
+    sony:
+      key: "sony"
+      canonical: "ソニー"
+      aliases: ["ソニー", "Sony", "SONY", "sony", "α", "アルファ"]
+
+# --------------------------------------------------------------------------
+# 製品名・型番（name / aliases 形式）
+# --------------------------------------------------------------------------
+products:
+  own:
+    cameras:
+      - name: "Z9"
+        aliases: ["Z 9", "z9", "ニコンZ9"]
+      - name: "Z8"
+        aliases: ["Z 8", "z8", "ニコンZ8"]
+      - name: "Z6III"
+        aliases: ["Z6 III", "z6iii", "Z6 3", "Z6 mark3"]
+      - name: "Z5II"
+        aliases: ["Z5 II", "z5ii", "Z5 2"]
+      - name: "Zf"
+        aliases: ["Z f", "zf", "ニコンZf"]
+      - name: "Zfc"
+        aliases: ["Z fc", "zfc"]
+      - name: "Z50II"
+        aliases: ["Z50 II", "z50ii", "Z50 2"]
+      - name: "Z30"
+        aliases: ["Z 30", "z30"]
+    lenses:
+      - name: "NIKKOR Z 40mm f/2"
+        aliases: ["Z 40mm f2", "NIKKOR Z 40mm F2", "40mm f2 単焦点"]
+      - name: "NIKKOR Z 24-120mm f/4 S"
+        aliases: ["Z 24-120mm f4", "NIKKOR Z 24-120 F4 S", "24-120mm f4 S"]
+      - name: "NIKKOR Z 50mm f/1.8 S"
+        aliases: ["Z 50mm f1.8", "NIKKOR Z 50mm F1.8", "50mm f1.8 S"]
+      - name: "NIKKOR Z 180-600mm"
+        aliases: ["Z 180-600mm", "NIKKOR 180-600", "180-600mm 望遠"]
+  competitors:
+    canon:
+      cameras:
+        - name: "EOS R1"
+          aliases: ["R1", "eos r1", "キヤノンR1"]
+        - name: "EOS R5 Mark II"
+          aliases: ["R5 Mark II", "R5II", "r5 mark2", "R5 マーク2"]
+        - name: "EOS R6 Mark II"
+          aliases: ["R6 Mark II", "R6II", "r6 mark2", "R6 マーク2"]
+        - name: "EOS R8"
+          aliases: ["R8", "eos r8"]
+        - name: "EOS R7"
+          aliases: ["R7", "eos r7"]
+        - name: "EOS R10"
+          aliases: ["R10", "eos r10"]
+        - name: "EOS R50"
+          aliases: ["R50", "eos r50"]
+      lenses:
+        - name: "RF50mm F1.8 STM"
+          aliases: ["RF 50mm f1.8", "RF50 1.8 STM", "50mm f1.8 STM"]
+        - name: "RF24-105mm F4 L IS USM"
+          aliases: ["RF 24-105mm F4L", "RF24-105 F4 L", "24-105mm f4 L"]
+        - name: "RF100-500mm"
+          aliases: ["RF 100-500mm", "RF100-500 望遠"]
+    sony:
+      cameras:
+        - name: "α1 II"
+          aliases: ["a1 II", "a1ii", "アルファ1 II", "α1マーク2"]
+        - name: "α9 III"
+          aliases: ["a9 III", "a9iii", "アルファ9 III"]
+        - name: "α7R V"
+          aliases: ["a7r5", "a7RV", "α7RV", "アルファ7Rマーク5"]
+        - name: "α7 IV"
+          aliases: ["a7 IV", "a7iv", "α7IV", "アルファ7マーク4"]
+        - name: "α7C II"
+          aliases: ["a7c2", "a7CII", "α7CII"]
+        - name: "α6700"
+          aliases: ["a6700", "アルファ6700"]
+        - name: "ZV-E10 II"
+          aliases: ["ZV-E10II", "zve10 ii", "VLOGCAM E10 II"]
+      lenses:
+        - name: "FE 50mm F1.8"
+          aliases: ["FE50mm 1.8", "50mm f1.8 FE"]
+        - name: "FE 24-70mm F2.8 GM II"
+          aliases: ["FE 24-70 GM2", "24-70mm f2.8 GM II", "24-70 GMII"]
+        - name: "FE 200-600mm G"
+          aliases: ["FE 200-600 G", "200-600mm G望遠"]
+
+# products が空の間、generate.py はこちらの一般名詞をフォールバックとして使用します。
+product_categories:
+  cameras:
+    - "ミラーレスカメラ"
+    - "一眼レフカメラ"
+    - "フルサイズミラーレス"
+    - "APS-Cミラーレス"
+    - "デジタル一眼カメラ"
+    - "コンパクトデジタルカメラ"
+    - "エントリーモデル"
+  lenses:
+    - "標準ズームレンズ"
+    - "望遠レンズ"
+    - "単焦点レンズ"
+    - "広角レンズ"
+    - "マクロレンズ"
+    - "交換レンズ"
+    - "高倍率ズームレンズ"
+
+modifiers:
+  informational:
+    - "使い方"
+    - "レビュー"
+    - "とは"
+    - "設定方法"
+    - "作例"
+    - "初心者"
+    - "評判"
+    - "スペック"
+    - "画質"
+    - "口コミ"
+  comparison:
+    - "比較"
+    - "vs"
+    - "どっちがいい"
+    - "違い"
+    - "どちらを選ぶべき"
+    - "比較 おすすめ"
+    - "性能比較"
+  transactional:
+    - "価格"
+    - "最安値"
+    - "購入"
+    - "中古"
+    - "在庫"
+    - "セール"
+    - "キャンペーン"
+    - "通販"
+    - "値段"
+    - "下取り"
+  navigational:
+    - "公式サイト"
+    - "公式ストア"
+    - "サポート"
+    - "ダウンロード"
+    - "取扱説明書"
+    - "修理"
+    - "問い合わせ"
+    - "ログイン"
+    - "会員登録"
+
+templates:
+  informational:
+    - "{brand} {product} {modifier}"
+    - "{product} {modifier}"
+    - "{brand} カメラ {modifier}"
+    - "{brand} {product} 特徴"
+    - "{product} {modifier} 初心者向け"
+  comparison:
+    - "{brand} {product} と {brand2} {product2} {modifier}"
+    - "{brand} {product} {modifier} {brand2} {product2}"
+    - "{product} {brand} {brand2} {modifier}"
+    - "{brand} {brand2} {modifier}"
+  transactional:
+    - "{brand} {product} {modifier}"
+    - "{product} {modifier} 楽天"
+    - "{brand} {product} {modifier} amazon"
+    - "{product} {modifier} 店舗"
+    - "{brand} {product} {modifier} 予約"
+  navigational:
+    - "{brand} {modifier}"
+    - "{brand} {product} {modifier}"
+    - "{brand} カスタマーサポート"
+    - "{brand} {product} 登録"
+
+# 自社型番のみ・ブランド名なしで生成するテンプレ（{brand}を含まない）
+# 生成時にこのブロックが使われた場合 own_product_only=1 を付与する。
+templates_brandless:
+  informational:
+    - "{product} {modifier}"
+    - "{product} {modifier} 初心者向け"
+    - "{product} {modifier} まとめ"
+  transactional:
+    - "{product} {modifier}"
+    - "{product} {modifier} 楽天"
+    - "{product} {modifier} 店舗"
+    - "{product} {modifier} 予約"
+  navigational:
+    - "{product} {modifier}"
+    - "{product} {modifier} ダウンロード"
+    - "{product} 登録"
+
+# 曖昧な境界例（複数の意図シグナルを1クエリに混在させる）用テンプレ
+ambiguous_templates:
+  - "{brand} {product} {modifier1} {modifier2}"
+  - "{product} {modifier1} {modifier2}"
+  - "{brand} {brand2} {product} {modifier1}"
+  - "{brand} {product} {modifier1} どこで {modifier2}"
+
+# カテゴリ外クエリ（デジタルカメラ・交換レンズと無関係な語彙）
+out_of_category:
+  terms:
+    - "株価"
+    - "採用"
+    - "決算"
+    - "会社説明会"
+    - "プリンター"
+    - "インクカートリッジ"
+    - "複合機"
+    - "イヤホン"
+    - "ワイヤレスイヤホン"
+    - "ヘッドホン"
+    - "スマートフォン"
+    - "ノートパソコン"
+    - "炊飯器"
+    - "腕時計"
+    - "テレビ"
+  templates:
+    - "{brand} {term}"
+    - "{term} おすすめ"
+    - "{term} 比較"
+    - "{term} とは"
+    - "{term} 最安値"
